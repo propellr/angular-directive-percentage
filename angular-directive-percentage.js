@@ -45,7 +45,7 @@ angular.module('angular-directive-percentage', [])
       var parsedValue = "";
 
       // check if valid (one of the validators could have set to be invalid already)
-      if (ngModelCtrl.$valid) {
+      if (ngModelCtrl.$valid || !ngModelCtrl.$error.percentage) {
 
         if (ngModelCtrl.$isEmpty(viewValue)) {
           // handle empty view data since we can't covert it back to a decimal
@@ -53,9 +53,9 @@ angular.module('angular-directive-percentage', [])
         } else {
 
           // handle formatting
-          //if (viewValue.slice(-1) === "%") {
-          //  viewValue = viewValue.slice(0, -1);
-          //}
+          if (viewValue.slice(-1) === "%") {
+            viewValue = viewValue.slice(0, -1);
+          }
 
           // check for non numeric
           var valid = isValidNumber(viewValue, ngModelCtrl);
@@ -67,7 +67,7 @@ angular.module('angular-directive-percentage', [])
 
           if (valid) {
             // convert percentage back to decimal
-            viewValue = viewValue / 100;
+            // viewValue = viewValue / 100;
           }
 
           if (valid) {
@@ -89,7 +89,7 @@ angular.module('angular-directive-percentage', [])
       var formattedValue = "";
 
       // check if valid (one of the validators could have set to be invalid already)
-      if (ngModelCtrl.$valid) {
+      if (ngModelCtrl.$valid || !ngModelCtrl.$error.percentage) {
 
         // handle empty view data
         if (ngModelCtrl.$isEmpty(modelValue)) {
@@ -106,7 +106,7 @@ angular.module('angular-directive-percentage', [])
 
           if (valid) {
             // convert decimal into percentage
-            modelValue = modelValue * 100;
+            // modelValue = modelValue * 100;
 
 
             // handle precision
@@ -117,8 +117,8 @@ angular.module('angular-directive-percentage', [])
           }
 
           // handle formatting
-          //formattedValue = modelValue.toString() + "%";
-          formattedValue = modelValue.toString();
+          formattedValue = modelValue.toString() + "%";
+          //formattedValue = modelValue.toString();
         }
       }
 
